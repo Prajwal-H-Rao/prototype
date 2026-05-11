@@ -1,6 +1,8 @@
 import { Container, Heading } from "@/components";
+import { getHealth } from "@/lib/api/health";
 
-export default function Home() {
+export default async function Home() {
+  const data = await getHealth();
   return (
     <main className="min-h-dvh py-16">
       <Container className="space-y-4">
@@ -8,6 +10,7 @@ export default function Home() {
         <p className="text-base text-zinc-600 dark:text-zinc-400">
           Replace this page and start building.
         </p>
+        <div>Backend status:{data.status}</div>
       </Container>
     </main>
   );
