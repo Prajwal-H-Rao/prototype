@@ -13,6 +13,15 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  {
+    rules: {
+      "comma-dangle": ["error", "always-multiline"],
+      "eol-last": ["error", "always"],
+      "object-curly-spacing": ["error", "always"],
+      quotes: ["error", "double", { avoidEscape: true }],
+      semi: ["error", "always"],
+    },
+  },
 ]);
 
 export default eslintConfig;
