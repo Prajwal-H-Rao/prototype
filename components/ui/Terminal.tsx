@@ -30,7 +30,9 @@ export function Terminal() {
       });
 
       socket.on("output", (message: string) => {
-        term.write(message);
+        term.write(
+          "\r\n" + message + "\r\nHello from \x1B[1;3;31mxterm.js\x1B[0m $ ",
+        );
       });
 
       return () => {
