@@ -21,18 +21,17 @@ export function Terminal() {
       term.loadAddon(fitAddon);
       term.open(ref.current);
       term.focus();
-      term.write("Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ");
+      term.write("Hello from \x1B[1;3;31mxterm.js\x1B[0m\r\nuser@terminal:~$ ");
 
       const socket = createSocket("http://localhost:3000");
 
       term.onData((data) => {
+        term.write(data);
         socket.emit("input", data);
       });
 
       socket.on("output", (message: string) => {
-        term.write(
-          "\r\n" + message + "\r\nHello from \x1B[1;3;31mxterm.js\x1B[0m $ ",
-        );
+        term.write("\r\n" + message + "\r\nuser@terminal:~$ ");
       });
 
       return () => {
