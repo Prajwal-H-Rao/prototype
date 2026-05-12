@@ -3,6 +3,7 @@ import { Terminal as Xterminal } from "@xterm/xterm";
 import "@xterm/xterm/css/xterm.css";
 import { FitAddon } from "@xterm/addon-fit";
 import { useEffect, useRef } from "react";
+import { createSocket, disconnectSocket } from "../../lib/api/socket";
 
 export function Terminal() {
   const ref = useRef<HTMLDivElement>(null);
@@ -21,6 +22,21 @@ export function Terminal() {
       term.open(ref.current);
       term.focus();
       term.write("Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ");
+
+      const socket = createSocket("http://localhost:3000");
+
+      term.onData((data) => {
+        socket.emit("input", data);
+      });
+
+      socket.on("output", (message: string) => {
+        term.write(message);
+      });
+
+      return () => {
+        disconnectSocket(socket);
+        term.dispose();
+      };
     }
   }, []);
   return (
