@@ -1,4 +1,4 @@
-import { Container, Heading } from "@/components";
+import { Container, Heading, Terminal } from "@/components";
 import { getHealth } from "@/lib/api/health";
 
 export default async function Home() {
@@ -11,6 +11,7 @@ export default async function Home() {
           Replace this page and start building.
         </p>
         <div>Backend status:{data.status}</div>
+        <Terminal />
       </Container>
     </main>
   );
